@@ -118,7 +118,7 @@ EOF
 
 # reset
 axoned tendermint unsafe-reset-all --home $HOME/.axoned --keep-addr-book
-curl https://snapshots-testnet.nodejumper.io/axone/axone_latest.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.axoned
+curl -L https://snapshots.kjnodes.com/axone-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.axoned
 
 # start service
 sudo systemctl daemon-reload
