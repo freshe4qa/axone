@@ -51,18 +51,15 @@ sudo apt update && sudo apt upgrade -y
 apt install curl iptables build-essential git wget jq make gcc nano tmux htop nvme-cli pkg-config libssl-dev libleveldb-dev tar clang bsdmainutils ncdu unzip libleveldb-dev lz4 -y
 
 # install go
-ver="1.19" && \
-wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz" && \
-sudo rm -rf /usr/local/go && \
-sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz" && \
-rm "go$ver.linux-amd64.tar.gz" && \
-echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile && \
-source $HOME/.bash_profile && \
-go version
+sudo rm -rf /usr/local/go
+curl -L https://go.dev/dl/go1.22.7.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
+echo 'export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin' >> $HOME/.profile
+source .profile
 
 # download binary
-cd $HOME
-git clone https://github.com/axone-protocol/axoned && cd axoned
+cd $HOME && rm -rf axoned
+git clone https://github.com/axone-protocol/axoned
+cd axoned
 git checkout v10.0.0
 make install
 
