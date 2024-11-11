@@ -52,16 +52,16 @@ apt install curl iptables build-essential git wget jq make gcc nano tmux htop nv
 
 # install go
 sudo rm -rf /usr/local/go
-curl -L https://go.dev/dl/go1.22.7.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
-echo 'export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin' >> $HOME/.profile
-source .profile
+curl -Ls https://go.dev/dl/go1.22.8.linux-amd64.tar.gz | sudo tar -xzf - -C /usr/local
+eval $(echo 'export PATH=$PATH:/usr/local/go/bin' | sudo tee /etc/profile.d/golang.sh)
+eval $(echo 'export PATH=$PATH:$HOME/go/bin' | tee -a $HOME/.profile)
 
 # download binary
 cd $HOME && rm -rf axoned
 git clone https://github.com/axone-protocol/axoned
 cd axoned
 git checkout v10.0.0
-make install
+make build
 
 # config
 axoned config chain-id $AXONE_CHAIN_ID
